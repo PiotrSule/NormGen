@@ -1,5 +1,5 @@
 
-# PSDistr - Distributions Derived from Normal Distribution
+# NormGen - normal pseudo - random numbers
 
 **author: Piotr Sulewski, Pomeranian University, Antoni Drapella, professor emeritus**
 

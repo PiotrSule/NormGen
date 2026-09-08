@@ -28,13 +28,13 @@ Of the normal quantile function Intended to fastly generate normal pseudo-random
 
 ## Installation
 
-You can install the released version of **PSDistr** from CRAN with:
+You can install the released version of **NormGen** from CRAN with:
 
 ``` r
 install.packages("NormGen")
 ```
 
-You can install the development version of **PSDistr** from [GitHub](https://github.com/) with:
+You can install the development version of **NormGen** from [GitHub](https://github.com/) with:
 
 ```r
 library("remotes")
