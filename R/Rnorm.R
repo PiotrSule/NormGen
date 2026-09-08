@@ -1,23 +1,42 @@
-library(xlsx)
-library(moments)
+#' @title Normal generator
+#'
+#' @description
+#' Random generation for the normal distribution with parameters m and s.
+#'
+#' @param n number of observations. If length(n) > 1, the length is taken to be the number required.
+#' @param m vector of means.
+#' @param s vector of standard deviations
+#' @return The function returns the value of random generation for the normal distribution with m equal to mean and standard deviation equal to s.
+#' @rdname Rnorm
+#'
+#' @details
+#'
+#' @author
+#' Piotr Sulewski, \email{piotr.sulewski@upsl.edu.pl}, Pomeranian Uniwersity in Slupsk. Antoni Drapella, professor emeritus
+#'
+#' @references
+#' {Sulewski P., Drapella A (2026). \emph{ Very simple and relatively precise mapping Of the normal quantile function Intended to fastly generate normal pseudo-random numbers.} under review.}
+#'
+#'
+#'
+#' @examples
+#' Rnorm(10,2,2)
+#' Rnorm(33)
+#'
+#' @export
 
-Tail = function(p) {
-  q = p; p = min(p, 1 - p)
-  Tail = -sqrt(-log(-4*pi*p*p*log(p))) - 4.67143488752887E-02 * p ^ 9.72914845210256E-02 - 0.10862894518844 * p ^ 0.409318862130021
-  if (q<=0.5) return(Tail) else return(-Tail)
-}
 Rnorm=function(n, m=0, s=1) {
   x = numeric(n) # normal pseudo-random numbers
   P = numeric(33) #The vector containing ends of intervals.
-  A = matrix(NA, nrow=4, ncol=32)  #The vector containing coefficients of interpolation 
+  A = matrix(NA, nrow=4, ncol=32)  #The vector containing coefficients of interpolation
   # polynomial of the third order.
-  P[1] = 3.16712418331199E-05;  P[2] = 8.84172852008038E-05; P[3] = 2.32629079035525E-04 
+  P[1] = 3.16712418331199E-05;  P[2] = 8.84172852008038E-05; P[3] = 2.32629079035525E-04
   P[4] = 5.770250421390766E-04; P[5] = 1.34989803163009E-03; P[6] = 2.97976323505456E-03
-  P[7] = 6.20966532577613E-03;  P[8] = 1.22244726550447E-02; P[9] = 2.27501319481792E-02  
+  P[7] = 6.20966532577613E-03;  P[8] = 1.22244726550447E-02; P[9] = 2.27501319481792E-02
   P[10] = 4.00591568638171E-02; P[11] = 6.68072012688581E-02;P[12] = 0.105649773666855
   P[13] = 0.158655253931457;    P[14] = 0.226627352376868;   P[15] = 0.308537538725987
   P[16] = 0.401293674317076;    P[17] = 0.5;                 P[18] = 0.598706325682924
-  P[19] = 0.691462461274013;    P[20] = 0.773372647623132;   P[21] = 0.841344746068543 
+  P[19] = 0.691462461274013;    P[20] = 0.773372647623132;   P[21] = 0.841344746068543
   P[22] = 0.894350226333145;    P[23] = 0.933192798731142;   P[24] = 0.959940843136183
   P[25] = 0.977249868051821;    P[26] = 0.987775527344955;   P[27] = 0.993790334674224
   P[28] = 0.997020236764945;    P[29] = 0.99865010196837;    P[30] = 0.999422974957609
@@ -55,9 +74,9 @@ Rnorm=function(n, m=0, s=1) {
   A[1, 30] = 1575877457.23404;A[2, 30] = -4724770389.05577; A[3, 30] = 4721910628.02015;A[4, 30] = -1573017692.31665
   A[1, 31] = 24752920061.7601;A[2, 31] = -74240979740.263;  A[3, 31] = 74223204695.0259;A[4, 31] = -24735145012.4176
   A[1, 32] = 466663187395.837;A[2, 32] = -1399864651796.75; A[3, 32] = 1399739755385.99;A[4, 32] = -466538290980.746
-  
+
   #Phase: Determining interval number, the value ip has fallen in. What range does the value p fall into?
-  
+
   for (i in 1:n) {
     ip = runif(1,0,1)
     if (ip < P[1]) np = 0
@@ -76,12 +95,13 @@ Rnorm=function(n, m=0, s=1) {
           break}
       }
     }
-    if ((np>0) && (np<33)) x[i]=((A[4,np] + ip * (A[3,np] + ip * (A[2,np] + A[1,np] * ip))) * s + m) else x[i]=Tail(ip)
+    if ((np>0) && (np<33)) x[i]=((A[4,np] + ip * (A[3,np] + ip * (A[2,np] + A[1,np] * ip))) * s + m) else
+    {
+      q = p; p = min(p, 1 - p)
+      x[i] = -sqrt(-log(-4*pi*p*p*log(p))) - 4.67143488752887E-02 * p ^ 9.72914845210256E-02 - 0.10862894518844 * p ^ 0.409318862130021
+      if (q<=0.5) return(x[i]) else return(-x[i])
+    }
   }
   return(x)
 }
-
-
-#write.table(Rnorm(n,0,1),"gen.csv")
-
 

@@ -1,3 +1,3 @@
-# NormGen (development version)
+# Package version 0.0.1 
 
-* Initial CRAN submission.
+* This is the first version of the package.

@@ -2,26 +2,22 @@
 % Please edit documentation in R/Rnorm.R
 \name{Rnorm}
 \alias{Rnorm}
-\title{Normal pseudo-random number generator}
+\title{Normal generator}
 \usage{
-Rnorm(n, m=0, s=1)
+Rnorm(n, m = 0, s = 1)
 }
 \arguments{
 \item{n}{number of observations. If length(n) > 1, the length is taken to be the number required.}
 
-\item{m}{vector of means}
+\item{m}{vector of means.}
 
 \item{s}{vector of standard deviations}
-
 }
 \value{
-The function returns the value(s) of the normal pseudo-random number generator
+The function returns the value of random generation for the normal distribution with m equal to mean and standard deviation equal to s.
 }
 \description{
-Random generation for the normal distribution with parameters n, m and s
-}
-\details{
-
+Random generation for the normal distribution with parameters m and s.
 }
 \examples{
 Rnorm(10,2,2)
@@ -29,10 +25,8 @@ Rnorm(33)
 
 }
 \references{
-{Sulewski P.,, Drapella A (2026). \emph{Very simple and relatively precise mapping Of the normal quantile function Intended to fastly generate normal pseudo-random numbers.
-} under review}
+{Sulewski P., Drapella A (2026). \emph{ Very simple and relatively precise mapping Of the normal quantile function Intended to fastly generate normal pseudo-random numbers.} under review.}
 }
 \author{
-Piotr Sulewski, \email{piotr.sulewski@upsl.edu.pl}, Pomeranian Uniwersity in Slupsk.
-Antoni Drapella, professor emeritus
+Piotr Sulewski, \email{piotr.sulewski@upsl.edu.pl}, Pomeranian Uniwersity in Slupsk. Antoni Drapella, professor emeritus
 }
