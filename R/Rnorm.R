@@ -5,7 +5,7 @@
 #'
 #' @param n number of observations. If length(n) > 1, the length is taken to be the number required.
 #' @param m vector of means.
-#' @param s vector of standard deviations
+#' @param s vector of standard deviations.
 #' @return The function returns the value of random generation for the normal distribution with m equal to mean and standard deviation equal to s.
 #' @rdname Rnorm
 #'
@@ -26,22 +26,23 @@
 #' @export
 
 Rnorm=function(n, m=0, s=1) {
-  x = numeric(n) # normal pseudo-random numbers
-  P = numeric(33) #The vector containing ends of intervals.
-  A = matrix(NA, nrow=4, ncol=32)  #The vector containing coefficients of interpolation
-  # polynomial of the third order.
-  P[1] = 3.16712418331199E-05;  P[2] = 8.84172852008038E-05; P[3] = 2.32629079035525E-04
-  P[4] = 5.770250421390766E-04; P[5] = 1.34989803163009E-03; P[6] = 2.97976323505456E-03
-  P[7] = 6.20966532577613E-03;  P[8] = 1.22244726550447E-02; P[9] = 2.27501319481792E-02
-  P[10] = 4.00591568638171E-02; P[11] = 6.68072012688581E-02;P[12] = 0.105649773666855
-  P[13] = 0.158655253931457;    P[14] = 0.226627352376868;   P[15] = 0.308537538725987
-  P[16] = 0.401293674317076;    P[17] = 0.5;                 P[18] = 0.598706325682924
-  P[19] = 0.691462461274013;    P[20] = 0.773372647623132;   P[21] = 0.841344746068543
-  P[22] = 0.894350226333145;    P[23] = 0.933192798731142;   P[24] = 0.959940843136183
-  P[25] = 0.977249868051821;    P[26] = 0.987775527344955;   P[27] = 0.993790334674224
-  P[28] = 0.997020236764945;    P[29] = 0.99865010196837;    P[30] = 0.999422974957609
-  P[31] = 0.999767370920964;    P[32] = 0.999911582714799;   P[33] = 0.999968328758167
-  # Phase: Finding and reading values of coefficients of interpolation polynomial.
+  R = numeric(n) # normal pseudo-random numbers
+  TGP = numeric(33) #The vector containing ends of intervals.
+  A = matrix(NA, nrow=4, ncol=32)  #The vector containing coefficients of interpolation polynomial of the third order.
+
+  TGP[1] = 3.16712418331199E-05;  TGP[2] = 8.84172852008038E-05; TGP[3] = 2.32629079035525E-04
+  TGP[4] = 5.770250421390766E-04; TGP[5] = 1.34989803163009E-03; TGP[6] = 2.97976323505456E-03
+  TGP[7] = 6.20966532577613E-03;  TGP[8] = 1.22244726550447E-02; TGP[9] = 2.27501319481792E-02
+  TGP[10] = 4.00591568638171E-02; TGP[11] = 6.68072012688581E-02;TGP[12] = 0.105649773666855
+  TGP[13] = 0.158655253931457;    TGP[14] = 0.226627352376868;   TGP[15] = 0.308537538725987
+  TGP[16] = 0.401293674317076;    TGP[17] = 0.5;                 TGP[18] = 0.598706325682924
+  TGP[19] = 0.691462461274013;    TGP[20] = 0.773372647623132;   TGP[21] = 0.841344746068543
+  TGP[22] = 0.894350226333145;    TGP[23] = 0.933192798731142;   TGP[24] = 0.959940843136183
+  TGP[25] = 0.977249868051821;    TGP[26] = 0.987775527344955;   TGP[27] = 0.993790334674224
+  TGP[28] = 0.997020236764945;    TGP[29] = 0.99865010196837;    TGP[30] = 0.999422974957609
+  TGP[31] = 0.999767370920964;    TGP[32] = 0.999911582714799;   TGP[33] = 0.999968328758167
+
+  # Phase 2. Finding and reading values of coefficients of interpolation polynomial.
   A[1, 1] = 464914109065.137; A[2, 1] = -124595326.266275;  A[3, 1] = 13965.31021279;   A[4, 1] = -4.33209076
   A[1, 2] = 24757302830.248;  A[2, 2] = -17782555.5642977;  A[3, 2] = 5400.05089066;    A[4, 2] = -4.1055532
   A[1, 3] = 1575910993.9699;  A[2, 3] = -2862023.37702872;  A[3, 3] = 2221.62422704;    A[4, 3] = -3.88177149
@@ -75,33 +76,35 @@ Rnorm=function(n, m=0, s=1) {
   A[1, 31] = 24752920061.7601;A[2, 31] = -74240979740.263;  A[3, 31] = 74223204695.0259;A[4, 31] = -24735145012.4176
   A[1, 32] = 466663187395.837;A[2, 32] = -1399864651796.75; A[3, 32] = 1399739755385.99;A[4, 32] = -466538290980.746
 
-  #Phase: Determining interval number, the value ip has fallen in. What range does the value p fall into?
+  #Phase 1. Determining interval number, the value ip has fallen in. What range does the value p fall into?
 
   for (i in 1:n) {
     ip = runif(1,0,1)
-    if (ip < P[1]) np = 0
-    else if (ip > P[33]) np = 33
+    if (ip < TGP[1]) np = 0
+    else if (ip > TGP[33]) np = 33
     else if (ip<=0.5) {
       for  (v in 1:17) {
-        if  (ip <= P[v]) {
+        if  (ip <= TGP[v]) {
           np = v - 1
           break}
       }
     }
     else if (ip>0.5) {
       for  (v in 18:33) {
-        if  (ip <= P[v]) {
+        if  (ip <= TGP[v]) {
           np = v - 1
           break}
       }
     }
-    if ((np>0) && (np<33)) x[i]=((A[4,np] + ip * (A[3,np] + ip * (A[2,np] + A[1,np] * ip))) * s + m) else
+    if ((np>0) && (np<33)) R[i]=((A[4,np] + ip * (A[3,np] + ip * (A[2,np] + A[1,np] * ip))) * s + m) else
     {
       q = p; p = min(p, 1 - p)
       x[i] = -sqrt(-log(-4*pi*p*p*log(p))) - 4.67143488752887E-02 * p ^ 9.72914845210256E-02 - 0.10862894518844 * p ^ 0.409318862130021
       if (q<=0.5) return(x[i]) else return(-x[i])
     }
   }
-  return(x)
+  return(R)
 }
+
+
 
