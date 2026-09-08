@@ -18,13 +18,14 @@ Rnorm(n, m=0, s=1)
 The function returns the value(s) of the normal pseudo-random number generator
 }
 \description{
-Random generation for the DS normal distribution with parameters n, m and s
+Random generation for the normal distribution with parameters n, m and s
 }
 \details{
 
 }
 \examples{
-rdsn(10,2,2)
+Rnorm(10,2,2)
+Rnorm(33)
 
 }
 \references{
