@@ -34,7 +34,7 @@ install_github("PiotrSule/NormGen")
 
 **Rnorm**
 
-Random generation for the Normal Distribution are calculated
+Random generation for the Normal Distribution is calculated
 
 ``` r
 library(NormGen)

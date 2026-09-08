@@ -24,7 +24,7 @@ knitr::opts_chunk$set(
 
 ## Installation
 
-You can install the released version of **PSDistr** from CRAN with:
+You can install the released version of **NormGen** from CRAN with:
 
 ``` r
 install.packages("NormGen")
