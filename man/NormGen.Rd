@@ -8,8 +8,8 @@
 The \strong{NormGen} presents the normal pseudo-random number.
 The list of package functions is as follows:
 }
-\section{Functions for the normal distribution}{
+\section{Function for the normal distribution}{
 
 
 \code{\link{Rnorm}}
-
+}
