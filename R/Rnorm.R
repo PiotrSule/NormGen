@@ -26,7 +26,16 @@
 #' @export
 
 library(Rcpp)
-cppFunction('NumericVector Rnorm(int n, double m = 0.0, double s = 1.0) {
+
+sourceCpp(code = '
+#include <Rcpp.h>
+#include <algorithm>
+#include <cmath>
+
+using namespace Rcpp;
+
+// [[Rcpp::export]]
+NumericVector Rnorm_cpp(int n, double m = 0.0, double s = 1.0) {
     NumericVector R(n);
 
     double TGP[33] = {
@@ -103,5 +112,5 @@ cppFunction('NumericVector Rnorm(int n, double m = 0.0, double s = 1.0) {
         }
     }
     return R;
-}')
-
+}
+')
