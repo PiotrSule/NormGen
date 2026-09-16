@@ -35,7 +35,7 @@ sourceCpp(code = '
 using namespace Rcpp;
 
 // [[Rcpp::export]]
-NumericVector Rnorm_cpp(int n, double m = 0.0, double s = 1.0) {
+NumericVector Rnorm(int n, double m = 0.0, double s = 1.0) {
     NumericVector R(n);
 
     double TGP[33] = {
