@@ -1,0 +1,21 @@
+Package: NormGen
+Title: Pseudo-normal random generator
+Version: 0.0.0.9000
+Authors@R: 
+    person("Piotr", "Sulewski", , "piotr.sulewski@upsl.edu.pl", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-0788-6567"))
+Description: Pseudo-normal random generator.
+Depends:
+    R (>= 3.5.0)
+License: GPL-3
+Language: en-US
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Suggests: 
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+LazyData: true
+
