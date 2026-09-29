@@ -1,0 +1,19 @@
+Package: NormGen
+Title: An Efficient and Precise Quantile Mapping for Normal Pseudo-Random Number Generation
+Version: 0.0.5
+Authors@R: person("Piotr", "Sulewski", , "piotr.sulewski@upsl.edu.pl", role = c("aut", "cre"))
+Description: Description: High-performance pseudo-normal random generator using an optimized 'quantile mapping' algorithm. It provides fast generation of normal pseudo-random numbers based on precise mathematical approximations. Version 0.0.5 updates the package and publication title to be more concise, precise, and readable for the community.
+Depends: R (>= 3.5.0)
+Imports: Rcpp (>= 1.0.0)
+LinkingTo: Rcpp
+Suggests: 
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+License: GPL-3
+Language: en-US
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+LazyData: true
