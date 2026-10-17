@@ -1,0 +1,71 @@
+# NormGen: Normal pseudo - random number generation
+
+**author: Piotr Sulewski, Pomeranian University in Slupsk, Poland**
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+Random generation for the normal distribution is presented. 
+To read more about the package please see (and cite :)) papers:
+
+Sulewski P., Drapella A. (2026). An Efficient and Precise Quantile Mapping 
+for Normal Pseudo-Random Number Generation. Journal of Statistical Software, 
+Under review.
+
+
+## Installation
+
+You can install the released version of **NormGen** from CRAN with:
+
+``` r
+install.packages("NormGen")
+```
+
+You can install the development version of **NormGen** from
+[GitHub](https://github.com) with:
+
+``` r
+library("remotes")
+install_github("PiotrSule/NormGen")
+```
+
+## Functions
+
+### Rnorm
+Standard, high-performance pseudo-normal random number generation based 
+on an optimized quantile mapping algorithm.
+
+``` r
+library(NormGen)
+
+# Generate 10 random numbers from N(2, 4)
+Rnorm(10, m = 2, s = 2)
+#>  [1]  2.7330164  0.8988458 -0.1690484  2.3681542  3.5832490  1.9752853  2.1125923  1.8527157
+#>  [9]  2.6327170  2.7305332
+
+# Generate 10 standard normal numbers N(0, 1)
+Rnorm(10)
+#>  [1] -0.481834073  0.070919666  0.100871525  0.228601729 -0.622437488 -0.006578594
+#>  [7] -0.125655220  0.325686814 -0.352871726 -0.332205368
+```
+
+### parallel_Rnorm
+High-performance, multithreaded pseudo-normal random number generator powered by `RcppParallel` and Intel `TBB`. It splits the simulation payload across available CPU cores, making it extremely efficient for massive sample sizes (n ≥ 10⁵). It includes an explicit `seed` parameter to guarantee computational reproducibility.
+
+``` r
+# Generate parallel numbers with explicit reproducibility parameter
+parallel_samples <- PRnorm(10, mean = 2, sd = 2, seed = 2026)
+parallel_samples
+#>  [1]  4.45466992 -0.24577313 -1.50696356  3.88024531  2.16097564  5.41857159
+#>  [7]  1.80885156  4.86104178  1.35706814 -0.03064803
+
+# Verify reproducibility
+verify_samples <- PRnorm(10, mean = 2, sd = 2, seed = 2026)
+identical(parallel_samples, verify_samples)
+#> [1] TRUE
+
+# Standard parallel generation using default N(0, 1) parameters
+PRnorm(10, seed = 2026)
+#>  [1]  1.22733496 -1.12288656 -1.75348178  0.94012265  0.08048782  1.70928580
+#>  [7] -0.09557422  1.43052089 -0.32146593 -1.01532402
+```
