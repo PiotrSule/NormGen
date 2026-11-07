@@ -1,0 +1,5 @@
+useDynLib(NormGen, .registration = TRUE)
+importFrom(Rcpp, sourceCpp)
+importFrom(RcppParallel, RcppParallelLibs)
+export(Rnorm)
+export(PRnorm)

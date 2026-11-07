@@ -1,0 +1,23 @@
+---
+title: "Introduction to NormGen: Efficient and Precise Quantile Mapping"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to NormGen}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(NormGen)
+```
+
+## Overview
+
+Welcome to the introduction guide for the `NormGen` package. This package provides high-performance single-threaded and multithreaded pseudo-normal random number generators using an optimized quantile mapping algorithm.
